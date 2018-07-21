@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -50,8 +51,7 @@ public class earthquakeAdapter extends ArrayAdapter<earthquake> {
 
         //find the textview with id magnitude
         TextView magnitudeView = (TextView) listItemView.findViewById(R.id.magnitude);
-        // display the magnitude of the current earthquake in that textview
-        magnitudeView.setText(currentearthquakeAdapter.getMagnitude());
+
 
 
         // Create a new Date object from the time in milliseconds of the earthquake
@@ -77,6 +77,18 @@ public class earthquakeAdapter extends ArrayAdapter<earthquake> {
         timeView.setText(formattedTime);
 
 
+
+
+        // Format the magnitude to show 1 decimal place
+        String formattedMagnitude = formatMagnitude(currentearthquakeAdapter.getMagnitude());
+        // Display the magnitude of the current earthquake in that TextView
+        magnitudeView.setText(formattedMagnitude);
+        
+        
+        
+        
+        
+        
 
         /**
          * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
@@ -117,6 +129,11 @@ public class earthquakeAdapter extends ArrayAdapter<earthquake> {
 
 
 }
+
+    private String formatMagnitude(double magnitude) {
+        DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
+        return magnitudeFormat.format(magnitude);
+    }
 
     private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");

@@ -17,6 +17,10 @@ import java.util.List;
 public class earthquakeAdapter extends ArrayAdapter<earthquake> {
 
 
+    private static final String LOCATION_SEPARATOR = " of ";
+
+
+
     public earthquakeAdapter(@NonNull EarthquakeActivity context, List<earthquake> earthquakes) {
         super(context, 0,earthquakes);
     }
@@ -24,6 +28,9 @@ public class earthquakeAdapter extends ArrayAdapter<earthquake> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
+
 
 
 
@@ -51,10 +58,6 @@ public class earthquakeAdapter extends ArrayAdapter<earthquake> {
         Date dateObject = new Date(currentearthquakeAdapter.getTimeInMilliseconds());
 
 
-        // find the textview with the id location
-        TextView locationView  = (TextView) listItemView.findViewById(R.id.location);
-        // display the magnitude of the current earthquake in that textview
-        locationView.setText(currentearthquakeAdapter.getmLocation());
 
         // find the textview with the id date
 
@@ -84,8 +87,31 @@ public class earthquakeAdapter extends ArrayAdapter<earthquake> {
          * Return the formatted date string (i.e. "4:30 PM") from a Date object.
          */
 
+        String primaryLocation;
+        String locationOffset;
 
 
+
+        String originalLocation = currentearthquakeAdapter.getmLocation();
+
+
+        if(originalLocation.contains(LOCATION_SEPARATOR)) {
+            String parts[] = originalLocation.split(LOCATION_SEPARATOR); // it will split from here
+            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            primaryLocation = parts[1];
+        }
+        else
+        {
+            locationOffset = getContext().getString(R.string.near_the);
+            primaryLocation = originalLocation;
+        }
+
+
+        TextView primaryLocationView = (TextView) listItemView.findViewById(R.id.primary_location);
+        primaryLocationView.setText(primaryLocation);
+
+        TextView locationOffsetView = (TextView) listItemView.findViewById(R.id.location_offset);
+        locationOffsetView.setText(locationOffset);
 
         return listItemView;
 

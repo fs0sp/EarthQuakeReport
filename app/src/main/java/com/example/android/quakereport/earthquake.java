@@ -3,6 +3,9 @@
 
 package com.example.android.quakereport;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class earthquake {
 
 
@@ -21,16 +24,19 @@ public class earthquake {
     private String mDate;
 
 
+    /*  time of the earthquake */
+
+    private Long mTimeInMilliseconds;
 
     /* Construct a new object.
      *
      */
 
 
-    public earthquake(String magnitude, String location, String date) {
+    public earthquake(String magnitude, String location, long timeInMilliseconds) {
         mMagnitude = magnitude;
         mLocation = location;
-        mDate = date;
+        mTimeInMilliseconds = timeInMilliseconds;
     }
 
 
@@ -52,6 +58,29 @@ public class earthquake {
 
     public String getmDate() {
         return mDate;
+    }
+
+    /**
+     * Returns the time of the earthquake.
+     */
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
+    }
+
+    /**
+     * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
+     */
+    private String formatDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+        return dateFormat.format(dateObject);
+    }
+
+    /**
+     * Return the formatted date string (i.e. "4:30 PM") from a Date object.
+     */
+    private String formatTime(Date dateObject) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        return timeFormat.format(dateObject);
     }
 
 

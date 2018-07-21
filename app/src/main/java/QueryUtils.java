@@ -100,7 +100,7 @@ public final class QueryUtils {
 
                 // Create a new {@link Earthquake} object with the magnitude, location, time
 
-                earthquakes.add(new earthquake(stringMagnitude,location,dateToDisplay));
+                earthquakes.add(new earthquake(stringMagnitude,location,time));
 
 
             }
